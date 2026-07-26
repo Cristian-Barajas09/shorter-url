@@ -4,12 +4,29 @@ from typing import Any
 
 from django.db.models.query import QuerySet
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from shorter.models import ShortURL
 from shorter.forms import ShortURLForm
+
+
+class LandingView(TemplateView):
+    """landing page view"""
+
+    template_name = "shorter/landing.html"
+
+
+class ShorterLoginView(LoginView):
+    """custom login view"""
+
+    template_name = "shorter/login.html"
+    redirect_authenticated_user = True
+
+    def get_success_url(self) -> str:
+        return reverse_lazy("shorter:list", kwargs={"username": self.request.user.username})
 
 class ShorterListView(ListView):
     """shorter list view"""
@@ -34,7 +51,13 @@ class ShorterCreateView(LoginRequiredMixin, CreateView):
 
     form_class = ShortURLForm
     template_name = "shorter/create_form.html"
-    success_url = reverse_lazy("shorter:list")
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return  reverse_lazy("shorter:list", kwargs={ "username": self.request.user.username })
 
 
 def redirect_to_url(_: HttpRequest, username: str, short_url: str):

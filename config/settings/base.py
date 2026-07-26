@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 from decouple import config
+from django.urls import reverse
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -107,3 +108,6 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS  = [
     BASE_DIR / "static"
 ]
+
+LOGIN_URL = "shorter:login"
+LOGOUT_URL = "shorter:logout"
