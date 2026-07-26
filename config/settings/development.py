@@ -7,6 +7,8 @@ from config.settings.base import *
 # pylint: enable=unused-wildcard-import
 
 DEBUG = True
+SECRET_KEY = 'django-insecure-j=b+tp%2x1bm=#pqgo$i34hqly5*-p^q0ltytnr7ryl0%^uso4'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 

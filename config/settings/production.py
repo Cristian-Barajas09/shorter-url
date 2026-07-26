@@ -10,6 +10,8 @@ from config.settings.base import *
 
 DEBUG = False
 
+
+
 url: str = config('DATABASE_URL', cast=str) # type: ignore
 
 DATABASES = {
