@@ -11,10 +11,17 @@
 </head>
 <body class="">
     <div class="container d-flex flex-column align-items-center min-vh-100">
+        <div class="w-100 d-flex justify-content-end p-4">
+            <button class="btn" id="theme-button">night</button>
+        </div>
+
+
         {% include 'shorter/components/header.component.html' %}
         <main class="d-flex flex-column align-items-center w-100">
             {% block content %}{% endblock content %}
         </main>
     </div>
+
+    <script src="{% static 'js/theme-handler.js' %}"></script>
 </body>
 </html>
