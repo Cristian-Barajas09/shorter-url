@@ -10,7 +10,7 @@ from config.settings.base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["localhost", '127.0.0.1']
+ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", cast=list)
 
 
 url: str = config('DATABASE_URL', cast=str) # type: ignore
