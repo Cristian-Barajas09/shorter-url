@@ -1,0 +1,9 @@
+<header class="d-flex flex-column align-items-center my-5 text-center">
+    <h1 class="">Shorter Url</h1>
+    <p class="text-body-secondary">Acortador de urls</p>
+    {% if user.is_authenticated  %}
+        <div>
+            <a class="btn btn-link" href="{% url 'shorter:create' %}">Agregar nueva url</a>
+        </div>
+    {% endif %}
+</header>

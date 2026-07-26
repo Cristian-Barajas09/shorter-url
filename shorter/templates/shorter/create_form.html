@@ -1,0 +1,43 @@
+{% extends "shorter/base.html" %}
+
+{% block content %}
+    <section class="w-75 mx-auto py-5">
+        <div class="card ">
+            <div class="card-body p-4 p-md-5">
+                <h2 class="h4 mb-3">Crear nueva URL corta</h2>
+                <p class="text-body-secondary mb-4">Completa el nombre y la URL original para generar un acceso corto.</p>
+
+                <form method="post" class="vstack gap-3">
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger mb-0">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+
+                    <div>
+                        <label class="form-label" for="{{ form.name.id_for_label }}">Nombre</label>
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                            <div class="text-danger small mt-1">{{ form.name.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="{{ form.original_url.id_for_label }}">URL original</label>
+                        {{ form.original_url }}
+                        {% if form.original_url.errors %}
+                            <div class="text-danger small mt-1">{{ form.original_url.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="d-flex gap-2 pt-2">
+                        <button class="btn btn-success" type="submit">Guardar</button>
+                        <a class="btn btn-outline-light" href="{% url 'shorter:list'  request.user.username %}">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

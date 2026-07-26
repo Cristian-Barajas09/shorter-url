@@ -1,0 +1,37 @@
+{% extends "shorter/base.html" %}
+
+{% block content %}
+
+    <div class="container py-5">
+        <section class="w-75 mx-auto mb-4">
+            <form method="GET" action="{% url 'shorter:list' view.kwargs.username %}">
+                <div class="input-group mb-3">
+                    <input aria-describedby="button-search" class="form-control" type="text" name="search" placeholder="Search..." value="{{ request.GET.search }}">
+                    <button class="btn btn-success" id="button-search" type="submit">Search</button>
+                </div>
+            </form>
+        </section>
+        <section class="w-75 mx-auto">
+            <ul class="list-group shadow-sm">
+                {% for short_url in short_urls %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-3 px-4">
+                        <div>
+                            <span>{{ request.get_host }}/{{ view.kwargs.username }}/</span>
+                            <a
+                                class="text-decoration-none fw-semibold text-success"
+                                href="{% url 'shorter:redirect' view.kwargs.username  short_url.name %}"
+                                target="_blank"
+                            >{{ short_url.name }}</a>
+                        </div>
+                        <span class="badge bg-success rounded-pill text-wrap ms-3">
+                            {{ short_url.original_url }}
+                        </span>
+                    </li>
+                {% empty %}
+                    <li class="list-group-item text-center text-muted py-4">No hay URLs para mostrar</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+
+{% endblock content %}
