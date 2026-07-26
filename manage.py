@@ -9,7 +9,7 @@ def main():
 
     environment: str = config("DJANGO_ENV", cast=str) # type:ignore
 
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', f'config.settings.{environment}')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', f'config.settings.{environment.strip()}')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
