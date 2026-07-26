@@ -1,4 +1,7 @@
 """production settings"""
+import dj_database_url
+from decouple import config
+
 # pylint: disable=wildcard-import
 # pylint: disable=unused-wildcard-import
 from config.settings.base import *
@@ -7,3 +10,12 @@ from config.settings.base import *
 
 DEBUG = False
 
+url: str = config('DATABASE_URL', cast=str) # type: ignore
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=url,
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
+}
